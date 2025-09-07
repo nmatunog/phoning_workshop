@@ -12,12 +12,16 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
-        .step-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
         }
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        .chevron {
+            transition: transform 0.3s ease-in-out;
+        }
+        .step-card.active .chevron {
+            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -28,16 +32,10 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Achieving Consistency and Excellence</h1>
-                    <p class="text-lg text-gray-600 mt-1">An Interactive Workshop on Phoning & Calendar Management</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Phoning and Calendar Management Workshop</h1>
+                    <p class="text-lg text-gray-600 mt-1">Achieving Consistency and Excellence Masterclass</p>
                     <p class="text-md text-gray-700 font-medium mt-1">by Nilo B. Matunog</p>
                 </div>
-                <button id="downloadBtn" onclick="downloadInfographic()" class="bg-purple-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-800 transition-colors duration-300 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                    Download Infographic
-                </button>
             </div>
         </div>
     </header>
@@ -47,96 +45,204 @@
 
         <div id="pdf-part-1">
             <!-- Introduction -->
-            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
-                <h2 class="text-2xl font-bold mb-4">Master Your Time, Master Your Success</h2>
-                <p class="mb-4">Welcome! This workshop is designed to help you master the critical skills of calendar management and effective phoning. Time is your most valuable asset as an advisor. By learning to manage it with intentionality, you can unlock your full potential.</p>
-                <p>This module is based on the principles from "Bridge Your Gap" by Jim Effner.</p>
-            </div>
-
-            <!-- Billable Hours Calculator -->
-            <div id="calculator" class="bg-purple-700 text-white p-8 rounded-xl shadow-xl mb-12">
-                <h2 class="text-2xl font-bold mb-2">Activity: Calculate Your "Billable Hours"</h2>
-                <p class="mb-6 opacity-90">Discover how much of your day is truly productive. The goal is to have at least 60% of your day consist of "billable hours."</p>
-                
-                <div class="grid md:grid-cols-3 gap-6 mb-6">
-                    <div>
-                        <label for="totalHours" class="block font-medium mb-2">Total Hours Worked (e.g., 8.5)</label>
-                        <input type="number" id="totalHours" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 11">
-                    </div>
-                    <div>
-                        <label for="meetings" class="block font-medium mb-2">Face-to-Face Meetings</label>
-                        <input type="number" id="meetings" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 1">
-                    </div>
-                    <div>
-                        <label for="phoneCalls" class="block font-medium mb-2">Phone Calls Made (30 calls = 1 hr)</label>
-                        <input type="number" id="phoneCalls" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 30">
-                    </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg mb-12 flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l-3 3m0 0l3 3m-3-3h6.586a1 1 0 00.707-.293l3-3a1 1 0 00-1.414-1.414L15 14.586V11a1 1 0 10-2 0v3.586l-.293-.293a1 1 0 00-1.414 1.414z" />
+                    </svg>
                 </div>
-
-                <div class="text-center">
-                    <button onclick="calculateBillableHours()" class="bg-white text-purple-700 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors duration-300">Calculate My Percentage</button>
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Master Your Time, Master Your Success</h2>
+                    <p class="mb-4">Welcome! This workshop is designed to help you master the critical skills of calendar management and effective phoning. Time is your most valuable asset as an advisor. By learning to manage it with intentionality, you can unlock your full potential.</p>
+                    <p>This module is based on the principles from "Bridge Your Gap" by Jim Effner.</p>
                 </div>
-
-                <div id="result" class="mt-6 text-center font-bold text-2xl h-8"></div>
-                <div id="feedback" class="mt-2 text-center text-lg h-6"></div>
             </div>
 
 
             <!-- 8 Steps Section -->
             <h2 class="text-3xl font-bold text-center mb-10">The 8 Steps to Mastery</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-4">
                 
                 <!-- Step 1 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 1:</span> Create Your Ideal Calendar</h3>
-                    <p class="mb-3">Master your calendar with an abundance mentality. Your goal isn't just to be busy, but to see the <span class="font-semibold">right people</span>. Fill your calendar with intentionality and purpose.</p>
-                    <p class="italic">"Every time you say 'yes' to something, you are saying 'no' to something else."</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 1:</span> Create Your Ideal Calendar</h3>
+                        </div>
+                        <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">Master your calendar with an abundance mentality. Your goal isn't just to be busy, but to see the <span class="font-semibold">right people</span>. Fill your calendar with intentionality and purpose.</p>
+                         <ul class="list-disc list-inside space-y-2 text-gray-700">
+                             <li><strong>Scarcity vs. Abundance:</strong> If you believe in your value and operate in a populated market, your issue isn't seeing enough people, it's seeing the right ones.</li>
+                             <li><strong>Be Intentional:</strong> You want the right kind of appointment, at the right time, on the right day, and in the right place.</li>
+                             <li><strong>Learn to Say "No":</strong> Think about opportunity cost. Every time you say "yes" to a less-than-ideal appointment, you are saying "no" to a potentially better one.</li>
+                         </ul>
+                    </div>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 2:</span> Relentlessly Fill Appointment Slots</h3>
-                    <p class="mb-3">View your calendar like a hotel business—every empty room (or time slot) is a lost opportunity. Aim for at least 60% of your day to be "billable hours."</p>
-                    <p class="font-semibold">Track your business, strategize, and work with intention.</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H17z" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 2:</span> Relentlessly Fill Appointment Slots</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">The ideal calendar concept is like running a hotel business. One of the most crucial elements to manage is having all rooms booked every night. Every empty room is a cost or a lost opportunity. View your calendar the same way.</p>
+                         <p class="mb-3">Take time to strategize and do work with much intention or purpose. Aim for at least 60% of your day to be "billable hours."</p>
+                         <p class="font-semibold italic mt-4">"Every timeslot that is vacant is a lost opportunity!"</p>
+                    </div>
                 </div>
 
+                <!-- Billable Hours Calculator -->
+                <div id="calculator" class="bg-purple-700 text-white p-8 rounded-xl shadow-xl my-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        <h2 class="text-2xl font-bold">Activity: Calculate Your "Billable Hours"</h2>
+                    </div>
+                    <p class="mb-4 opacity-90">It is important to be aware of your “billable hours”—this is how much time you spend working for a client. Let’s compute your billable hours.</p>
+                    <div class="mb-6 opacity-90 text-left bg-black bg-opacity-20 p-4 rounded-lg">
+                         <h4 class="font-bold mb-2">Billable Hour Formula:</h4>
+                         <ul class="list-none space-y-1 font-mono mb-4">
+                             <li>1 face-to-face meeting = 1 billable hour</li>
+                             <li>30 phone calls made   = 1 billable hour</li>
+                         </ul>
+                         <h4 class="font-bold mb-2">Instructions:</h4>
+                         <ul class="list-disc list-inside space-y-1">
+                             <li>Tally the time you leave the house and the time you get home this week.</li>
+                             <li>Add up all your “billable hours” based on the formula above.</li>
+                             <li><strong>Remember:</strong> Do not include travel time in your billable hours.</li>
+                         </ul>
+                    </div>
+                    
+                    <div class="mb-6 opacity-90 text-left bg-cyan-500 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold mb-2">Example Scenario:</h4>
+                        <p class="mb-2">For the day, Jim left the house at 8:30am and came home at 7:30pm. He made 30 phone calls and had one 2-hour meeting, but another was postponed. He also spent 1.5 hours travelling.</p>
+                        <ul class="list-none space-y-1 font-mono">
+                            <li><strong>Billable Hours:</strong> 2 hours (1 hr for 30 calls + 1 hr for the meeting)</li>
+                            <li><strong>Total Hours Worked:</strong> 11 hours</li>
+                            <li class="font-bold text-lg mt-2">Only 18% of Jim’s day was actually “paid”.</li>
+                        </ul>
+                    </div>
+
+                    <p class="mb-6 opacity-90">Now, discover how much of your day is truly productive. The goal is to have at least 60% of your day consist of "billable hours."</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <div>
+                            <label for="totalHours" class="block font-medium mb-2">Total Hours Worked (e.g., 8.5)</label>
+                            <input type="number" id="totalHours" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 11">
+                        </div>
+                        <div>
+                            <label for="meetings" class="block font-medium mb-2">Face-to-Face Meetings</label>
+                            <input type="number" id="meetings" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 1">
+                        </div>
+                        <div>
+                            <label for="phoneCalls" class="block font-medium mb-2">Phone Calls Made (30 calls = 1 hr)</label>
+                            <input type="number" id="phoneCalls" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 30">
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button onclick="calculateBillableHours()" class="bg-white text-purple-700 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors duration-300">Calculate My Percentage</button>
+                    </div>
+
+                    <div id="result" class="mt-6 text-center font-bold text-2xl h-8"></div>
+                    <div id="feedback" class="mt-2 text-center text-lg h-6"></div>
+                </div>
+
+
                 <!-- Step 3 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 3:</span> Don't Compromise Your Plan</h3>
-                    <p class="mb-3">The hardest part of calendar management is living it. Define your "sacred times" for phoning, planning, or personal life, and protect them fiercely.</p>
-                    <p class="italic">Do not compromise your planned slots to meet the needs of one client.</p>
+                 <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 3:</span> Don't Compromise Your Plan</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">The hardest part of calendar management is living it. Setting it up is easy; implementation is hard. Define your "sacred times" for phoning, planning, or personal life, and protect them fiercely.</p>
+                         <p class="font-semibold">What are the "sacred times" of your week? Identify and honor them.</p>
+                    </div>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 4:</span> Honor Your Phoning Time</h3>
-                    <p class="mb-3">Treat your scheduled phoning time as if it were an appointment with your most important client. Don't cancel it. This builds discipline and reinforces its importance.</p>
-                    <p class="font-semibold">Consistent phoning leads to an ideal calendar.</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                           <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 4:</span> Honor Your Phoning Time</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">Treat your scheduled phoning time as if it were an appointment with your most important client. If a client asks to meet during your phoning block, offer a different time. Do not budge.</p>
+                         <p class="italic">"Cancelling your phoning time psychologically tells you that it is not important."</p>
+                    </div>
                 </div>
 
                 <!-- Step 5 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 5:</span> Use Identical Phoning Language</h3>
-                    <p class="mb-3">Design a script that is authentic, effective, and laser-focused on getting the appointment. Practice it until it sounds natural, not like a telemarketer.</p>
-                    <p class="italic">Always end by offering two specific time slots that need to be filled.</p>
+                 <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 5:</span> Use Identical Phoning Language</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">Design a script that is authentic, effective, and laser-focused on getting the appointment. Practice it until it sounds natural, not like a telemarketer.</p>
+                         <p class="font-semibold">Always end by offering two specific time slots that need to be filled.</p>
+                    </div>
                 </div>
-
+                
                 <!-- Step 6 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 6:</span> Memorize Objection Responses</h3>
-                    <p class="mb-3">You will encounter the same few objections repeatedly. Prepare and memorize your responses so that they never throw you off your game. Confidence comes from preparation.</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                           <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 6:</span> Memorize Objection Responses</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p>You will encounter the same few objections repeatedly (e.g., "I'm not interested," "I'm too busy," "I have an advisor"). Prepare and memorize your responses so that they never throw you off your game. Confidence comes from preparation.</p>
+                    </div>
                 </div>
                 
                 <!-- Step 7 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 7:</span> Go Through Three Objections</h3>
-                    <p class="mb-3">People are often programmed to say "no" the first time. A successful advisor doesn't give up easily. Aim to work through three objections before suggesting to reconnect in 6 months.</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 7:</span> Go Through Three Objections</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p class="mb-3">People are often programmed to say "no" the first time. A successful advisor doesn't give up easily. Aim to work through three objections with every client.</p>
+                         <p class="font-semibold">If they give a third objection, say:</p>
+                         <p class="italic bg-gray-100 p-3 rounded-md">"Mr. Prospect, things have a way of changing over time. Would you have any objection if I kept in touch with you every 6 months?"</p>
+                    </div>
                 </div>
 
                 <!-- Step 8 -->
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 8:</span> Stand Up While Phoning</h3>
-                    <p class="mb-3">Your energy is contagious. Standing up improves your volume, tone, and inflection. Let your passion and smile jump through the phone and grab the prospect's attention.</p>
+                <div class="step-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="step-header p-6 flex justify-between items-center cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 16.5v-5a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v5a.5.5 0 01-.5.5h-2a.5.5 0 01-.5-.5zM12 16.5v-9a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v9a.5.5 0 01-.5.5h-2a.5.5 0 01-.5-.5zM18.5 16.5v-2a.5.5 0 01.5-.5h2a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 01-.5-.5z" /></svg>
+                            <h3 class="text-xl font-bold"><span class="text-cyan-500">Step 8:</span> Stand Up While Phoning</h3>
+                        </div>
+                         <svg class="chevron h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div class="step-content px-6 pb-6">
+                         <p>Your energy is contagious. Standing up improves your volume, tone, and inflection. Let your passion and smile jump through the phone and grab the prospect's attention. Even though they can't see you, they can feel your confidence.</p>
+                    </div>
                 </div>
 
             </div>
@@ -149,7 +255,10 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Phone Script Practice -->
                     <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h3 class="text-xl font-bold mb-4">Draft Your Telephone Script</h3>
+                        <div class="flex items-center gap-4 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            <h3 class="text-xl font-bold">Draft Your Telephone Script</h3>
+                        </div>
                         <p class="mb-4">Use the structure below to write a script that is simple, direct, and gets the appointment.</p>
                         <div class="space-y-4">
                             <div>
@@ -168,7 +277,10 @@
                     </div>
                     <!-- Objection Handling -->
                     <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h3 class="text-xl font-bold mb-4">Brainstorm Your Top Objections</h3>
+                        <div class="flex items-center gap-4 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <h3 class="text-xl font-bold">Brainstorm Your Top Objections</h3>
+                        </div>
                         <p class="mb-4">What are the most common objections you hear? Write them down and draft a confident, helpful response for each.</p>
                         <div class="space-y-4">
                             <div>
@@ -189,6 +301,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Download Button Section -->
+            <div class="text-center my-12">
+                <button id="downloadBtn" onclick="downloadInfographic()" class="bg-purple-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-800 transition-colors duration-300 flex items-center mx-auto text-lg shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    Download Your Action Plan
+                </button>
             </div>
 
             <!-- Daily Benchmark -->
@@ -245,6 +367,12 @@
                     <li style="margin-bottom: 10px;">7. Go Through Three Objections</li>
                     <li style="margin-bottom: 10px;">8. Stand Up While Phoning</li>
                 </ul>
+                
+                <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-top: 40px; margin-bottom: 20px; border-left: 4px solid #7E22CE; padding-left: 10px;">My Billable Hours Score</h2>
+                <div style="text-align: center; background-color: #f7fafc; padding: 20px; border-radius: 8px;">
+                    <p id="infographic-billable-result" style="font-size: 36px; font-weight: 700; color: #06B6D4;">--%</p>
+                    <p id="infographic-billable-feedback" style="font-size: 16px;">Calculate to see your score.</p>
+                </div>
 
                 <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-top: 40px; margin-bottom: 20px; border-left: 4px solid #7E22CE; padding-left: 10px;">Daily Benchmark: 4-2-4</h2>
                 <div style="display: flex; justify-content: space-around; text-align: center; background-color: #f7fafc; padding: 20px; border-radius: 8px;">
@@ -292,6 +420,25 @@
 
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stepHeaders = document.querySelectorAll('.step-header');
+
+            stepHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const stepCard = header.parentElement;
+                    const content = header.nextElementSibling;
+                    
+                    stepCard.classList.toggle('active');
+
+                    if (stepCard.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = "0px";
+                    }
+                });
+            });
+        });
+
         async function downloadInfographic() {
             const downloadBtn = document.getElementById('downloadBtn');
             const originalBtnText = downloadBtn.innerHTML;
@@ -317,6 +464,9 @@
             const objection3 = document.getElementById('objection3').value || "Objection 3";
             const response3 = document.getElementById('response3').value || placeholderText;
             
+            const resultText = document.getElementById('result').textContent;
+            const feedbackText = document.getElementById('feedback').textContent;
+
             // 2. Populate the infographic div
             document.getElementById('infographic-script-intro').innerText = scriptIntro;
             document.getElementById('infographic-script-interest').innerText = scriptInterest;
@@ -328,6 +478,14 @@
             document.getElementById('infographic-response2').innerText = response2;
             document.getElementById('infographic-objection3').innerText = objection3;
             document.getElementById('infographic-response3').innerText = response3;
+
+            if (resultText) {
+                document.getElementById('infographic-billable-result').innerText = resultText.replace('Your Billable Percentage: ', '');
+                document.getElementById('infographic-billable-feedback').innerText = feedbackText;
+            } else {
+                document.getElementById('infographic-billable-result').innerText = '--%';
+                document.getElementById('infographic-billable-feedback').innerText = 'Calculate to see your score.';
+            }
 
             // 3. Render the infographic div to a canvas
             const infographicElement = document.getElementById('infographicContainer');

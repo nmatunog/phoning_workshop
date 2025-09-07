@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phoning & Calendar Management Workshop by Nilo B. Matunog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -33,11 +32,11 @@
                     <p class="text-lg text-gray-600 mt-1">An Interactive Workshop on Phoning & Calendar Management</p>
                     <p class="text-md text-gray-700 font-medium mt-1">by Nilo B. Matunog</p>
                 </div>
-                <button id="downloadBtn" onclick="downloadPDF()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center">
+                <button id="downloadBtn" onclick="downloadInfographic()" class="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
-                    Download PDF
+                    Download Infographic
                 </button>
             </div>
         </div>
@@ -46,165 +45,169 @@
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-10" id="workshopContent">
 
-        <!-- Introduction -->
-        <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
-            <h2 class="text-2xl font-bold mb-4">Master Your Time, Master Your Success</h2>
-            <p class="mb-4">Welcome! This workshop is designed to help you master the critical skills of calendar management and effective phoning. Time is your most valuable asset as an advisor. By learning to manage it with intentionality, you can unlock your full potential.</p>
-            <p>This module is based on the principles from "Bridge Your Gap" by Jim Effner.</p>
+        <div id="pdf-part-1">
+            <!-- Introduction -->
+            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
+                <h2 class="text-2xl font-bold mb-4">Master Your Time, Master Your Success</h2>
+                <p class="mb-4">Welcome! This workshop is designed to help you master the critical skills of calendar management and effective phoning. Time is your most valuable asset as an advisor. By learning to manage it with intentionality, you can unlock your full potential.</p>
+                <p>This module is based on the principles from "Bridge Your Gap" by Jim Effner.</p>
+            </div>
+
+            <!-- Billable Hours Calculator -->
+            <div id="calculator" class="bg-purple-600 text-white p-8 rounded-xl shadow-xl mb-12">
+                <h2 class="text-2xl font-bold mb-2">Activity: Calculate Your "Billable Hours"</h2>
+                <p class="mb-6 opacity-90">Discover how much of your day is truly productive. The goal is to have at least 60% of your day consist of "billable hours."</p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label for="totalHours" class="block font-medium mb-2">Total Hours Worked (e.g., 8.5)</label>
+                        <input type="number" id="totalHours" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 11">
+                    </div>
+                    <div>
+                        <label for="meetings" class="block font-medium mb-2">Face-to-Face Meetings</label>
+                        <input type="number" id="meetings" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 1">
+                    </div>
+                    <div>
+                        <label for="phoneCalls" class="block font-medium mb-2">Phone Calls Made (30 calls = 1 hr)</label>
+                        <input type="number" id="phoneCalls" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 30">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="calculateBillableHours()" class="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition-colors duration-300">Calculate My Percentage</button>
+                </div>
+
+                <div id="result" class="mt-6 text-center font-bold text-2xl h-8"></div>
+                <div id="feedback" class="mt-2 text-center text-lg h-6"></div>
+            </div>
+
+
+            <!-- 8 Steps Section -->
+            <h2 class="text-3xl font-bold text-center mb-10">The 8 Steps to Mastery</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Step 1 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 1:</span> Create Your Ideal Calendar</h3>
+                    <p class="mb-3">Master your calendar with an abundance mentality. Your goal isn't just to be busy, but to see the <span class="font-semibold">right people</span>. Fill your calendar with intentionality and purpose.</p>
+                    <p class="italic">"Every time you say 'yes' to something, you are saying 'no' to something else."</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 2:</span> Relentlessly Fill Appointment Slots</h3>
+                    <p class="mb-3">View your calendar like a hotel business—every empty room (or time slot) is a lost opportunity. Aim for at least 60% of your day to be "billable hours."</p>
+                    <p class="font-semibold">Track your business, strategize, and work with intention.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 3:</span> Don't Compromise Your Plan</h3>
+                    <p class="mb-3">The hardest part of calendar management is living it. Define your "sacred times" for phoning, planning, or personal life, and protect them fiercely.</p>
+                    <p class="italic">Do not compromise your planned slots to meet the needs of one client.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 4:</span> Honor Your Phoning Time</h3>
+                    <p class="mb-3">Treat your scheduled phoning time as if it were an appointment with your most important client. Don't cancel it. This builds discipline and reinforces its importance.</p>
+                    <p class="font-semibold">Consistent phoning leads to an ideal calendar.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 5:</span> Use Identical Phoning Language</h3>
+                    <p class="mb-3">Design a script that is authentic, effective, and laser-focused on getting the appointment. Practice it until it sounds natural, not like a telemarketer.</p>
+                    <p class="italic">Always end by offering two specific time slots that need to be filled.</p>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 6:</span> Memorize Objection Responses</h3>
+                    <p class="mb-3">You will encounter the same few objections repeatedly. Prepare and memorize your responses so that they never throw you off your game. Confidence comes from preparation.</p>
+                </div>
+                
+                <!-- Step 7 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 7:</span> Go Through Three Objections</h3>
+                    <p class="mb-3">People are often programmed to say "no" the first time. A successful advisor doesn't give up easily. Aim to work through three objections before suggesting to reconnect in 6 months.</p>
+                </div>
+
+                <!-- Step 8 -->
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-3"><span class="text-cyan-500">Step 8:</span> Stand Up While Phoning</h3>
+                    <p class="mb-3">Your energy is contagious. Standing up improves your volume, tone, and inflection. Let your passion and smile jump through the phone and grab the prospect's attention.</p>
+                </div>
+
+            </div>
         </div>
 
-        <!-- Billable Hours Calculator -->
-        <div id="calculator" class="bg-blue-600 text-white p-8 rounded-xl shadow-xl mb-12">
-            <h2 class="text-2xl font-bold mb-2">Activity: Calculate Your "Billable Hours"</h2>
-            <p class="mb-6 opacity-90">Discover how much of your day is truly productive. The goal is to have at least 60% of your day consist of "billable hours."</p>
-            
-            <div class="grid md:grid-cols-3 gap-6 mb-6">
-                <div>
-                    <label for="totalHours" class="block font-medium mb-2">Total Hours Worked (e.g., 8.5)</label>
-                    <input type="number" id="totalHours" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 11">
-                </div>
-                <div>
-                    <label for="meetings" class="block font-medium mb-2">Face-to-Face Meetings</label>
-                    <input type="number" id="meetings" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 1">
-                </div>
-                <div>
-                    <label for="phoneCalls" class="block font-medium mb-2">Phone Calls Made (30 calls = 1 hr)</label>
-                    <input type="number" id="phoneCalls" class="w-full p-3 rounded-lg text-gray-800" placeholder="e.g., 30">
-                </div>
-            </div>
-
-            <div class="text-center">
-                <button onclick="calculateBillableHours()" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition-colors duration-300">Calculate My Percentage</button>
-            </div>
-
-            <div id="result" class="mt-6 text-center font-bold text-2xl h-8"></div>
-            <div id="feedback" class="mt-2 text-center text-lg h-6"></div>
-        </div>
-
-
-        <!-- 8 Steps Section -->
-        <h2 class="text-3xl font-bold text-center mb-10">The 8 Steps to Mastery</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Step 1 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 1:</span> Create Your Ideal Calendar</h3>
-                <p class="mb-3">Master your calendar with an abundance mentality. Your goal isn't just to be busy, but to see the <span class="font-semibold">right people</span>. Fill your calendar with intentionality and purpose.</p>
-                <p class="italic">"Every time you say 'yes' to something, you are saying 'no' to something else."</p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 2:</span> Relentlessly Fill Appointment Slots</h3>
-                <p class="mb-3">View your calendar like a hotel business—every empty room (or time slot) is a lost opportunity. Aim for at least 60% of your day to be "billable hours."</p>
-                <p class="font-semibold">Track your business, strategize, and work with intention.</p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 3:</span> Don't Compromise Your Plan</h3>
-                <p class="mb-3">The hardest part of calendar management is living it. Define your "sacred times" for phoning, planning, or personal life, and protect them fiercely.</p>
-                <p class="italic">Do not compromise your planned slots to meet the needs of one client.</p>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 4:</span> Honor Your Phoning Time</h3>
-                <p class="mb-3">Treat your scheduled phoning time as if it were an appointment with your most important client. Don't cancel it. This builds discipline and reinforces its importance.</p>
-                <p class="font-semibold">Consistent phoning leads to an ideal calendar.</p>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 5:</span> Use Identical Phoning Language</h3>
-                <p class="mb-3">Design a script that is authentic, effective, and laser-focused on getting the appointment. Practice it until it sounds natural, not like a telemarketer.</p>
-                <p class="italic">Always end by offering two specific time slots that need to be filled.</p>
-            </div>
-
-            <!-- Step 6 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 6:</span> Memorize Objection Responses</h3>
-                <p class="mb-3">You will encounter the same few objections repeatedly. Prepare and memorize your responses so that they never throw you off your game. Confidence comes from preparation.</p>
-            </div>
-            
-            <!-- Step 7 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 7:</span> Go Through Three Objections</h3>
-                <p class="mb-3">People are often programmed to say "no" the first time. A successful advisor doesn't give up easily. Aim to work through three objections before suggesting to reconnect in 6 months.</p>
-            </div>
-
-            <!-- Step 8 -->
-            <div class="step-card bg-white p-6 rounded-xl shadow-lg">
-                <h3 class="text-xl font-bold mb-3"><span class="text-blue-500">Step 8:</span> Stand Up While Phoning</h3>
-                <p class="mb-3">Your energy is contagious. Standing up improves your volume, tone, and inflection. Let your passion and smile jump through the phone and grab the prospect's attention.</p>
-            </div>
-
-        </div>
-
-        <!-- Interactive Activities Section -->
-        <div class="mt-16">
-            <h2 class="text-3xl font-bold text-center mb-10">Put It Into Practice</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Phone Script Practice -->
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4">Draft Your Telephone Script</h3>
-                    <p class="mb-4">Use the structure below to write a script that is simple, direct, and gets the appointment.</p>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="font-semibold">1. Introduction (Greeting, identify self, ask if it's a good time):</label>
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your intro here..."></textarea>
+        <div id="pdf-part-2">
+            <!-- Interactive Activities Section -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-10">Put It Into Practice</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Phone Script Practice -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Draft Your Telephone Script</h3>
+                        <p class="mb-4">Use the structure below to write a script that is simple, direct, and gets the appointment.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="scriptIntro" class="font-semibold">1. Introduction (Greeting, identify self, ask if it's a good time):</label>
+                                <textarea id="scriptIntro" class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your intro here..."></textarea>
+                            </div>
+                            <div>
+                                <label for="scriptInterest" class="font-semibold">2. Create Interest (Reason for call, benefit to them):</label>
+                                <textarea id="scriptInterest" class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your value proposition here..."></textarea>
+                            </div>
+                            <div>
+                                <label for="scriptAsk" class="font-semibold">3. Ask for Appointment (Offer two specific times):</label>
+                                <textarea id="scriptAsk" class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your closing question here..."></textarea>
+                            </div>
                         </div>
-                        <div>
-                            <label class="font-semibold">2. Create Interest (Reason for call, benefit to them):</label>
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your value proposition here..."></textarea>
-                        </div>
-                        <div>
-                            <label class="font-semibold">3. Ask for Appointment (Offer two specific times):</label>
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-24" placeholder="Type your closing question here..."></textarea>
+                    </div>
+                    <!-- Objection Handling -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Brainstorm Your Top Objections</h3>
+                        <p class="mb-4">What are the most common objections you hear? Write them down and draft a confident, helpful response for each.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="objection1" class="font-semibold">Objection 1:</label>
+                                <input type="text" id="objection1" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'I'm not interested.'">
+                                <textarea id="response1" class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
+                            </div>
+                            <div>
+                                <label for="objection2" class="font-semibold">Objection 2:</label>
+                                <input type="text" id="objection2" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'Just send me an email.'">
+                                <textarea id="response2" class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
+                            </div>
+                            <div>
+                                <label for="objection3" class="font-semibold">Objection 3:</label>
+                                <input type="text" id="objection3" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'I already have an advisor.'">
+                                <textarea id="response3" class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Objection Handling -->
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4">Brainstorm Your Top Objections</h3>
-                    <p class="mb-4">What are the most common objections you hear? Write them down and draft a confident, helpful response for each.</p>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="font-semibold">Objection 1:</label>
-                            <input type="text" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'I'm not interested.'">
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
-                        </div>
-                        <div>
-                            <label class="font-semibold">Objection 2:</label>
-                            <input type="text" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'Just send me an email.'">
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
-                        </div>
-                        <div>
-                            <label class="font-semibold">Objection 3:</label>
-                            <input type="text" class="w-full mt-2 p-2 border rounded-lg" placeholder="e.g., 'I already have an advisor.'">
-                            <textarea class="w-full mt-2 p-2 border rounded-lg h-20" placeholder="Your response..."></textarea>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <!-- Daily Benchmark -->
-        <div class="bg-gray-800 text-white p-8 rounded-xl shadow-xl mt-16 text-center">
-            <h2 class="text-2xl font-bold mb-4">Your Daily Benchmark: The 4-2-4 Rule</h2>
-            <p class="text-lg opacity-90 mb-6">Aim for this daily benchmark to gain confidence and build momentum.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-10">
-                <div class="text-center">
-                    <p class="text-5xl font-bold text-blue-400">4</p>
-                    <p class="font-semibold">Telephone Appointments</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-5xl font-bold text-blue-400">2</p>
-                    <p class="font-semibold">Face-to-Face Meetings</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-5xl font-bold text-blue-400">4</p>
-                    <p class="font-semibold">New Names</p>
+            <!-- Daily Benchmark -->
+            <div class="bg-gray-800 text-white p-8 rounded-xl shadow-xl mt-16 text-center">
+                <h2 class="text-2xl font-bold mb-4">Your Daily Benchmark: The 4-2-4 Rule</h2>
+                <p class="text-lg opacity-90 mb-6">Aim for this daily benchmark to gain confidence and build momentum.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-10">
+                    <div class="text-center">
+                        <p class="text-5xl font-bold text-cyan-400">4</p>
+                        <p class="font-semibold">Telephone Appointments</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl font-bold text-cyan-400">2</p>
+                        <p class="font-semibold">Face-to-Face Meetings</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl font-bold text-cyan-400">4</p>
+                        <p class="font-semibold">New Names</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,12 +221,81 @@
         </div>
     </footer>
 
+    <!-- This is the hidden element that will be turned into an infographic image -->
+    <div id="infographicContainer" style="position: absolute; left: -9999px; width: 850px; background-color: white; font-family: 'Inter', sans-serif; padding: 40px; color: #333;">
+        <!-- Header -->
+        <div style="text-align: center; border-bottom: 2px solid #8B5CF6; padding-bottom: 20px; margin-bottom: 30px;">
+            <h1 style="font-size: 36px; font-weight: 700; color: #1a202c;">Phoning & Calendar Management</h1>
+            <p style="font-size: 20px; color: #4a5568;">My Personal Action Plan</p>
+            <p style="font-size: 16px; color: #718096;">by Nilo B. Matunog</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <!-- Left Column: Key Principles -->
+            <div>
+                <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-bottom: 20px; border-left: 4px solid #8B5CF6; padding-left: 10px;">The 8 Steps to Mastery</h2>
+                <ul style="list-style-type: none; padding: 0; font-size: 16px; line-height: 1.6;">
+                    <li style="margin-bottom: 10px;">1. Create Your Ideal Calendar</li>
+                    <li style="margin-bottom: 10px;">2. Relentlessly Fill Appointment Slots</li>
+                    <li style="margin-bottom: 10px;">3. Don't Compromise Your Plan</li>
+                    <li style="margin-bottom: 10px;">4. Honor Your Phoning Time</li>
+                    <li style="margin-bottom: 10px;">5. Use Identical Phoning Language</li>
+                    <li style="margin-bottom: 10px;">6. Memorize Objection Responses</li>
+                    <li style="margin-bottom: 10px;">7. Go Through Three Objections</li>
+                    <li style="margin-bottom: 10px;">8. Stand Up While Phoning</li>
+                </ul>
+
+                <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-top: 40px; margin-bottom: 20px; border-left: 4px solid #8B5CF6; padding-left: 10px;">Daily Benchmark: 4-2-4</h2>
+                <div style="display: flex; justify-content: space-around; text-align: center; background-color: #f7fafc; padding: 20px; border-radius: 8px;">
+                    <div><p style="font-size: 36px; font-weight: 700; color: #06B6D4;">4</p><p>Appointments</p></div>
+                    <div><p style="font-size: 36px; font-weight: 700; color: #06B6D4;">2</p><p>Meetings</p></div>
+                    <div><p style="font-size: 36px; font-weight: 700; color: #06B6D4;">4</p><p>New Names</p></div>
+                </div>
+            </div>
+
+            <!-- Right Column: Participant Inputs -->
+            <div>
+                <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-bottom: 20px; border-left: 4px solid #8B5CF6; padding-left: 10px;">My Custom Scripts</h2>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">1. My Introduction</h3>
+                    <p id="infographic-script-intro" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 50px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">2. My Interest Creator</h3>
+                    <p id="infographic-script-interest" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 50px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">3. My Appointment Ask</h3>
+                    <p id="infographic-script-ask" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 50px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+
+                <h2 style="font-size: 24px; font-weight: 600; color: #2d3748; margin-top: 40px; margin-bottom: 20px; border-left: 4px solid #8B5CF6; padding-left: 10px;">My Objection Responses</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 id="infographic-objection1" style="font-weight: 600; font-size: 18px; margin-bottom: 8px; font-style: italic;">Objection 1:</h3>
+                    <p id="infographic-response1" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 40px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 id="infographic-objection2" style="font-weight: 600; font-size: 18px; margin-bottom: 8px; font-style: italic;">Objection 2:</h3>
+                    <p id="infographic-response2" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 40px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <h3 id="infographic-objection3" style="font-weight: 600; font-size: 18px; margin-bottom: 8px; font-style: italic;">Objection 3:</h3>
+                    <p id="infographic-response3" style="background-color: #edf2f7; border-radius: 8px; padding: 15px; min-height: 40px; white-space: pre-wrap; font-size: 14px; line-height: 1.5;"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const content = document.getElementById('workshopContent');
+        async function downloadInfographic() {
             const downloadBtn = document.getElementById('downloadBtn');
             const originalBtnText = downloadBtn.innerHTML;
+            const placeholderText = 'Your text will appear here.';
 
             downloadBtn.disabled = true;
             downloadBtn.innerHTML = `
@@ -231,52 +303,51 @@
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Processing...`;
+                Generating Image...`;
 
-            // Temporarily remove borders from inputs/textareas for a cleaner PDF
-            const inputs = content.querySelectorAll('input, textarea');
-            inputs.forEach(el => el.style.border = '1px solid #ccc');
+            // 1. Get user input
+            const scriptIntro = document.getElementById('scriptIntro').value || placeholderText;
+            const scriptInterest = document.getElementById('scriptInterest').value || placeholderText;
+            const scriptAsk = document.getElementById('scriptAsk').value || placeholderText;
 
+            const objection1 = document.getElementById('objection1').value || "Objection 1";
+            const response1 = document.getElementById('response1').value || placeholderText;
+            const objection2 = document.getElementById('objection2').value || "Objection 2";
+            const response2 = document.getElementById('response2').value || placeholderText;
+            const objection3 = document.getElementById('objection3').value || "Objection 3";
+            const response3 = document.getElementById('response3').value || placeholderText;
+            
+            // 2. Populate the infographic div
+            document.getElementById('infographic-script-intro').innerText = scriptIntro;
+            document.getElementById('infographic-script-interest').innerText = scriptInterest;
+            document.getElementById('infographic-script-ask').innerText = scriptAsk;
+            
+            document.getElementById('infographic-objection1').innerText = objection1;
+            document.getElementById('infographic-response1').innerText = response1;
+            document.getElementById('infographic-objection2').innerText = objection2;
+            document.getElementById('infographic-response2').innerText = response2;
+            document.getElementById('infographic-objection3').innerText = objection3;
+            document.getElementById('infographic-response3').innerText = response3;
 
-            html2canvas(content, {
-                scale: 2, // Increase scale for better resolution
-                useCORS: true,
-                onclone: (document) => {
-                    // Hide the calculator result section in the PDF
-                    const resultSection = document.getElementById('result');
-                    const feedbackSection = document.getElementById('feedback');
-                    if(resultSection) resultSection.style.display = 'none';
-                    if(feedbackSection) feedbackSection.style.display = 'none';
-                }
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const canvasWidth = canvas.width;
-                const canvasHeight = canvas.height;
-                const ratio = canvasWidth / canvasHeight;
-                const imgWidth = pdfWidth;
-                const imgHeight = imgWidth / ratio;
-                let heightLeft = imgHeight;
-                let position = 0;
+            // 3. Render the infographic div to a canvas
+            const infographicElement = document.getElementById('infographicContainer');
 
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pdfHeight;
-
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pdfHeight;
-                }
-                pdf.save('Phoning_and_Calendar_Workshop.pdf');
+            try {
+                const canvas = await html2canvas(infographicElement, { scale: 2, useCORS: true });
                 
-                // Restore button and input styles
+                // 4. Trigger download
+                const link = document.createElement('a');
+                link.download = 'Phoning_and_Calendar_Plan.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                console.error('Error generating infographic:', error);
+                alert('Sorry, there was an error creating your infographic.');
+            } finally {
+                // 5. Restore UI
                 downloadBtn.disabled = false;
                 downloadBtn.innerHTML = originalBtnText;
-                inputs.forEach(el => el.style.border = '');
-            });
+            }
         }
 
         function calculateBillableHours() {
@@ -322,5 +393,6 @@
     </script>
 </body>
 </html>
+
 
 
